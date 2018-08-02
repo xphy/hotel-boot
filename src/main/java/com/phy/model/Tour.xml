@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phy.mappers.TourMapper">
+
+	<select id="selectOne" parameterType="int" resultType="Tour">
+		select * from tour  where id=#{0}
+	</select>
+	<select id="select" parameterType="map" resultType="Tour">
+		select *  from tour 
+		<where>
+		   <if test="title != null"> title = #{title} </if>
+		   <if test="sdate != null"> and date >= #{sdate} </if>
+		   <if test="edate != null"> and date &lt;= #{edate} </if>
+		</where>
+	</select>
+	<insert id="insert" parameterType="Tour">
+		insert into tour(title,date,info) values(#{title},#{date},#{info})
+	</insert>
+	<delete id="delete" parameterType="int">
+		delete from tour where id=#{id}
+	</delete>
+	<update id="update" parameterType="Tour">
+		update tour set title=#{title},date=#{date},info=#{info} where id=#{id}
+	</update>
+</mapper>

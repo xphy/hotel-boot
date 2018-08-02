@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phy.mappers.HPriceMapper">
+    <resultMap type="HPrice" id="hpricemap">
+        <id column="id" property="id"/>
+		<result column="sdate" property="sdate"/>
+		<result column="edate" property="edate"/>
+		<result column="price" property="price"/>
+		<result column="dis" property="dis"/>
+		<result column="hstatus" property="status"/>		
+		<association property="kind" javaType="Kind">
+			<id column="kid" property="id"/>
+			<result column="name" property="name"/>
+			<result column="icon" property="icon"/>
+			<result column="kinfo" property="info"/>
+			<result column="kstatus" property="status"/>
+		</association>
+    </resultMap>
+	
+	<select id="selectOne" parameterType="int" resultMap="hpricemap">
+		select a.*,b.id kid,name,icon,b.info kinfo,b.status kstatus 
+		from hprice a left join kind b on a.kid = b.id
+		where a.status != 0 and b.status != 0 and a.id=#{id}
+	</select>
+	<select id="select" resultMap="hpricemap">
+		select a.*,b.id kid,name,icon,b.info kinfo,b.status kstatus 
+		from hprice a left join kind b on a.kid = b.id
+		where a.status != 0 and b.status != 0
+	</select>
+	<insert id="insert" parameterType="HPrice">
+		insert into hprice(kid,sdate,edate,price,dis) values(#{kid},#{sdate},#{edate},#{price},#{dis})
+	</insert>
+	<delete id="delete" parameterType="int">
+		delete from hprice where id=#{id}
+	</delete>
+	<update id="update" parameterType="HPrice">
+		update hprice set kid=#{kid},sdate=#{sdate},edate=#{edate},price=#{price},dis=#{dis} where id=#{id}
+	</update>
+</mapper>

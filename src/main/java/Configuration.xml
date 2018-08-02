@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="House" type="com.phy.model.House"/>
+		<typeAlias alias="Kind" type="com.phy.model.Kind"/>
+		<typeAlias alias="Tour" type="com.phy.model.Tour"/>
+		<typeAlias alias="HPrice" type="com.phy.model.HPrice"/>
+		<typeAlias alias="Company" type="com.phy.model.Company"/>
+	</typeAliases>
+	<plugins>
+	    <plugin interceptor ="com.github.pagehelper.PageHelper">
+	        <property name ="dialect" value="mysql"/>
+	        <property name ="offsetAsPageNum" value="true"/>
+	        <property name ="rowBoundsWithCount " value="true" />
+	        <property name ="pageSizeZero" value="true" />
+	        <property name ="reasonable" value="true" />
+	    </plugin>
+    </plugins>
+	
+	<mappers>
+		<mapper resource="com/phy/model/House.xml"/>
+		<mapper resource="com/phy/model/Kind.xml"/>
+		<mapper resource="com/phy/model/HPrice.xml"/>
+		<mapper resource="com/phy/model/Company.xml"/>
+		<mapper resource="com/phy/model/Tour.xml"/>
+	</mappers>
+</configuration>
