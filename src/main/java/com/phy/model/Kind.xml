@@ -7,6 +7,7 @@
 		<result column="name" property="name"/>
 		<result column="icon" property="icon"/>
 		<result column="info" property="info"/>
+		<result column="kprice" property="kprice"/>
 		<result column="status" property="status"/>
 		<collection property="houses" ofType="House">
 		   <id column="id" property="id"/>
@@ -30,22 +31,23 @@
 	</select>
 	<select id="selectOne" parameterType="int" resultMap="kindResultMap">
 		select 
-		a.id kid,a.name,a.icon,a.info kinfo,a.status kstatus,b.* 
+		a.id kid,a.name,a.icon,a.info kinfo,a.status kstatus,kprice,b.* 
 		from kind a left join house b on a.id=b.kid
-		where a.id=#{0}
+		where a.id=#{0} and status != 0
 	</select>
 	<select id="select1" resultMap="kindResultMap">
 		select 
-		a.id kid,a.name,a.icon,a.info kinfo,a.status kstatus,b.* 
+		a.id kid,a.name,a.icon,a.info kinfo,a.status kstatus,kprice,b.* 
 		from kind a left join house b on a.id=b.kid
+		where status != 0
 	</select>
 	<insert id="insert" parameterType="Kind">
-		insert into kind(name,icon,info,status) values(#{name},#{icon},#{info},#{status})
+		insert into kind(name,icon,info,kprice,status) values(#{name},#{icon},#{info},#{kprice},#{status})
 	</insert>
 	<delete id="delete" parameterType="int">
-		delete from kind where id=#{id}
+		delete from kind set  status=0 where id=#{id}
 	</delete>
 	<update id="update" parameterType="Kind">
-		update kind set name=#{name},icon=#{icon},info=#{info},status=#{status} where id=#{id}
+		update kind set name=#{name},icon=#{icon},info=#{info},kprice=#{kprice} where id=#{id}
 	</update>
 </mapper>

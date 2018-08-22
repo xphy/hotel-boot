@@ -56,6 +56,16 @@ public class HouseBiz implements IHouseBiz{
 		return this.mapper.updateImg(bean);
 	}
 
+	@Override
+	public List<House> queryHouses(Map<String, Object> map) {
+		return this.mapper.selectByDate(map);
+	}
+
+	@Override
+	public List<StateBean> queryBean() {
+		return this.mapper.selectTu();
+	}
+
 
 }
 

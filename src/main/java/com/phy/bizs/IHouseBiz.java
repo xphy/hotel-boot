@@ -9,4 +9,6 @@ public interface IHouseBiz{
 	public boolean updateImg(House bean);
 	public boolean state(Integer id,Integer status); 
 	public List<House> query(Map<String,Object> map);
+	public List<House> queryHouses(Map<String,Object> map);
+	public List<StateBean> queryBean();
 }

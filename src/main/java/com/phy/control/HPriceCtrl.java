@@ -47,6 +47,14 @@ public class HPriceCtrl {
 	public HPrice find(@PathVariable("id") int id){
 		return this.biz.find(id);
 	}
+	@RequestMapping("/get")
+	public HPrice getprice(int kid,String date){
+		Map<String,Object> map = new HashMap<>();
+		map.put("kid", kid);
+		map.put("date",date);
+		return biz.findDate(map);
+	}
+	
 	@RequestMapping("save")
 	public boolean save(HPrice bean) {
 		return this.biz.save(bean);

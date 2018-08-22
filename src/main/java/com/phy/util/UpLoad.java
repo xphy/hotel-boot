@@ -11,7 +11,8 @@ public class UpLoad {
 		  //获得文件的扩展名
 		  String exe =name.substring(name.lastIndexOf("."));
 		  //获得当前的系统时间
-		  long time = System.currentTimeMillis();
+		  int n = (int) (Math.random()*100+1);
+		  long time = System.currentTimeMillis()+n;
 		  //形成新的文件名
 		  name =time+exe;
 		  //构建目标文件，利用传过来的系统路径

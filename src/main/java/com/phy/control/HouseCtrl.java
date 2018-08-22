@@ -18,6 +18,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.phy.bizs.IHouseBiz;
 import com.phy.model.House;
+import com.phy.model.StateBean;
 import com.phy.util.UpLoad;
 
 @RestController
@@ -25,6 +26,20 @@ import com.phy.util.UpLoad;
 public class HouseCtrl {
 	@Resource
     private IHouseBiz biz;
+	
+	@RequestMapping("list")
+	public List<House> queryHouses(int kid,String rdate,String ldate){
+		Map<String,Object> map = new HashMap<>();
+		map.put("kid", kid);
+		map.put("rdate", rdate);
+		map.put("ldate", ldate);
+		return biz.queryHouses(map);
+	}
+	@RequestMapping("houseTu")
+	public List<StateBean> query(){
+		return this.biz.queryBean();
+		
+	}
 	@RequestMapping("query")
 	public Map<String,Object> query(HttpServletRequest request){
 		//查询参数
@@ -63,8 +78,7 @@ public class HouseCtrl {
 		house.put("pages",pages);
 		house.put("page", page);
 		//返回给前端
-		System.out.println(list);
-		System.out.println(house);
+		
 		return house;
 	}
 	

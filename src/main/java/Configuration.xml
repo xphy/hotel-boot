@@ -7,6 +7,12 @@
 		<typeAlias alias="Tour" type="com.phy.model.Tour"/>
 		<typeAlias alias="HPrice" type="com.phy.model.HPrice"/>
 		<typeAlias alias="Company" type="com.phy.model.Company"/>
+		<typeAlias alias="Power" type="com.phy.model.Power"/>
+		<typeAlias alias="User" type="com.phy.model.User"/>
+		<typeAlias alias="Rule" type="com.phy.model.Rule"/>
+		<typeAlias alias="Reserve" type="com.phy.model.Reserve"/>
+		<typeAlias alias="Record" type="com.phy.model.Record"/>
+		<typeAlias alias="stateBean" type="com.phy.model.StateBean"/>
 	</typeAliases>
 	<plugins>
 	    <plugin interceptor ="com.github.pagehelper.PageHelper">
@@ -24,5 +30,10 @@
 		<mapper resource="com/phy/model/HPrice.xml"/>
 		<mapper resource="com/phy/model/Company.xml"/>
 		<mapper resource="com/phy/model/Tour.xml"/>
+		<mapper resource="com/phy/model/Power.xml"/>
+		<mapper resource="com/phy/model/User.xml"/>
+		<mapper resource="com/phy/model/Rule.xml"/>
+		<mapper resource="com/phy/model/Reserve.xml"/>
+		<mapper resource="com/phy/model/Record.xml"/>
 	</mappers>
 </configuration>

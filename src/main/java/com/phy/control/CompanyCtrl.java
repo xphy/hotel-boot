@@ -37,8 +37,10 @@ public class CompanyCtrl {
 		if(!dir.exists()) dir.mkdirs();
 		Company bean = new Company();
 		bean.setId(1);
+		System.out.println(files.length);
 		for(int i=0;i < files.length;i++) {
 			MultipartFile file = files[i];
+			System.out.println(file);
 			if(file!= null && file.getSize()>0) {
 				String name = UpLoad.getString(file, path);
 				if(name!=null){

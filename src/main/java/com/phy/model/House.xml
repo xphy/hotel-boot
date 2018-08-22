@@ -22,18 +22,38 @@
 			<result column="name" property="name"/>
 			<result column="icon" property="icon"/>
 			<result column="kinfo" property="info"/>
+			<result column="kprice" property="kprice"/>
 			<result column="kstatus" property="status"/>
 		</association>
 	</resultMap>
+	<select id="selectTu" resultType="stateBean">
+		select b.name ,count(*) num
+		from house a left join kind b on a.kid = b.id
+		where a.status!= 0 
+		group by b.name	
+	</select>
+	<select id="selectByDate" parameterType="map" resultType="House">
+	      select * from house where id not in(
+			  select hid from (
+			      select hid from reserve 
+			      where ( #{rdate} &lt;= rdate and rdate &lt;= #{ldate})
+			         or ( #{rdate} &lt;= ldate  and ldate &lt;= #{ldate})
+			    union
+			      select hid from record
+			      where (#{rdate} &lt;= rdate and rdate &lt;= #{ldate})
+			         or( #{rdate} &lt;= ldate and ldate &lt;= #{ldate})
+			     )as a
+			)
+	</select>
 	<select id="selectOne" parameterType="int" resultMap="houseResultMap">
 		select 
-		a.id kid,a.name,a.icon,a.info kinfo,a.status kstatus,b.* 
+		a.id kid,a.name,a.icon,a.info kinfo,kprice,a.status kstatus,b.* 
 		from kind a right join house b on a.id=b.kid
 		where b.id=#{0} and b.status!= 0
 	</select>
 	<select id="select" parameterType="map" resultMap="houseResultMap">
 		select 
-		a.id kid,a.name,a.icon,a.info kinfo,a.status kstatus,b.* 
+		a.id kid,a.name,a.icon,a.info kinfo,kprice,a.status kstatus,b.* 
 		from kind a right join house b on a.id=b.kid
 		where b.status!= 0
 		<if test="kid!=null">

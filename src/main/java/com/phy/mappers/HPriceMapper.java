@@ -5,6 +5,7 @@ package com.phy.mappers;
  */
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,5 +16,6 @@ public interface HPriceMapper {
    public boolean update(HPrice bean);
    public boolean insert(HPrice bean);
    public HPrice selectOne(int id);
+   public HPrice selectByMap(Map<String,Object> map);
    public List<HPrice> select();
 }

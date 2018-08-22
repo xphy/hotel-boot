@@ -1,10 +1,21 @@
 package com.phy.model;
-
+/**
+ * @author 皮会友
+ */
 import java.util.List;
 
 
 
 public class Kind{
+	private Float kprice;
+	
+	public Float getKprice() {
+		return kprice;
+	}
+
+	public void setKprice(Float kprice) {
+		this.kprice = kprice;
+	}
 	private List<House> houses;
 	public List<House> getHouses() {
 		return houses;

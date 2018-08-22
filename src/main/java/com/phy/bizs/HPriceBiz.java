@@ -1,6 +1,7 @@
 package com.phy.bizs;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -37,6 +38,11 @@ public class HPriceBiz implements IHPriceBiz {
 	@Override
 	public HPrice find(Integer id) {
 		return this.mapper.selectOne(id);
+	}
+
+	@Override
+	public HPrice findDate(Map<String, Object> map) {
+		return this.mapper.selectByMap(map);
 	}
 
 }
