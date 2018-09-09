@@ -13,6 +13,7 @@
 		<typeAlias alias="Reserve" type="com.phy.model.Reserve"/>
 		<typeAlias alias="Record" type="com.phy.model.Record"/>
 		<typeAlias alias="stateBean" type="com.phy.model.StateBean"/>
+		<typeAlias alias="Msgset" type="com.phy.model.Msgset"/>
 	</typeAliases>
 	<plugins>
 	    <plugin interceptor ="com.github.pagehelper.PageHelper">
@@ -35,5 +36,6 @@
 		<mapper resource="com/phy/model/Rule.xml"/>
 		<mapper resource="com/phy/model/Reserve.xml"/>
 		<mapper resource="com/phy/model/Record.xml"/>
+		<mapper resource="com/phy/model/Msgset.xml"/>
 	</mappers>
 </configuration>

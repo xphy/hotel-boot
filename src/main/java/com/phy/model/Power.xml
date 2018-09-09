@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phy.mappers.PowerMapper">
+	
+	<select id="select1" resultType="Power">
+		select a.* ,b.name fname from power a left join
+		(select id, name from power) b 
+		on a.pid = b.id
+		where status!= 0
+		order by a.xh
+	</select>
+	<select id="selectOne" parameterType="int" resultType="Power">
+		select a.* ,b.name fname from power a left join
+		(select id, name from power) b 
+		on a.pid = b.id
+		where status!= 0 and a.id=#{0}
+	</select>
+	<select id="select2" resultType="Power">
+		select id,name from power 
+		where status!= 0 and pid = 0
+	</select>
+	<insert id="insert" parameterType="Power">
+		insert into power(pid,name,url,icon,xh,status) values(#{pid},#{name},#{url},#{icon},#{xh},#{status})
+	</insert>
+	<delete id="delete" parameterType="int">
+		update Power set status= 0 where id=#{id}
+	</delete>
+	<update id="update" parameterType="Power">
+		update power set pid=#{pid},name=#{name},url=#{url},icon=#{icon},xh=#{xh} where id=#{id}
+	</update>
+	<update id="updatexh" parameterType="Power">
+		update power set 
+		<if test="flag==0"> xh=xh-1 </if>
+		<if test="flag==1"> xh=xh+1 </if>
+		where id=#{id}
+	</update>
+</mapper>

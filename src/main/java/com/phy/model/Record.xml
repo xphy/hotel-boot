@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phy.mappers.RecordMapper">
+   
+	<select id="selectOne" parameterType="int" resultType="Record">
+		select a.*,b.hname,c.name kname
+		from reserve a left join house b on a.hid = b.id
+		left join kind c on b.kid = c.id
+		where a.id=#{0} 
+	</select>
+	<select id="selectall" parameterType="map" resultType="Record">
+		select a.*,b.hname,c.name 
+		from Record a left join house b on a.hid = b.id
+		left join kind c on b.kid = c.id
+		where 2>1 
+		<if test="custom!=null"> and custom = #{custom}</if>
+		<if test="sdate!=null"> and rdate &gt;= #{sdate}</if>
+		<if test="edate!=null"> and rdate &lt;= #{edate}</if>
+		<if test="kid!=null"> and c.id=#{kid} </if>
+		<if test="phone!=null"> and phone like concat('%',#{phone},'%')</if>
+		 order by id desc
+	</select>
+	<update id="checkOut" parameterType="int">
+		update record set res = 0 where id=#{0}
+	</update>
+	<delete id="delete" parameterType="int">
+	    delete record where id=#{0}
+	</delete>	
+	<update id="update" parameterType="Record">
+		update record 
+		set custom=#{custom},wxnick=#{wxnick},phone=#{phone},
+		persons=#{persons},rdate=#{rdate},ldate=#{ldate},
+		hid=#{hid},price=#{price},total=#{total} where id#{id}
+	</update>
+	<insert id="insert" parameterType="Reserve">
+		insert into record(custom,wxnick,phone,persons,rdate,ldate,hid,price,total)
+		 values(#{custom},#{wxnick},#{phone},#{persons},#{rdate},#{ldate},#{hid},#{price},#{total})
+	</insert>
+	
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phy.mappers.UserMapper">
+	<resultMap type="User" id="userResultMap">
+		<id column="uid" property="uid"/>
+		<result column="uname" property="uname"/>
+		<result column="password" property="password"/>
+		<result column="status" property="status"/>
+		<collection property="powers" ofType="Power">
+		   <id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="pid" property="pid"/>
+			<result column="url" property="url"/>
+			<result column="icon" property="icon"/>
+			<result column="xh" property="xh"/>
+			<result column="cstatus" property="status"/>
+		</collection>
+	</resultMap>
+	<select id="select" resultMap="userResultMap">
+		select a.*,c.*,c.status cstatus
+		from user a 
+		left join rule b on a.uid = b.uid
+		left join power c on c.id= b.pid
+		where  a.status != 0 
+	</select>
+	<select id="selectOne" parameterType="int" resultMap="userResultMap">
+		select a.*,c.*,c.status cstatus
+		from user a 
+		left join rule b on a.uid = b.uid
+		left join power c on c.id= b.pid
+		where  a.status != 0 and a.uid=#{0}
+	</select>
+	<select id="login" parameterType="User" resultMap="userResultMap">
+		select a.*,c.*,c.status cstatus
+		from user a 
+		left join rule b on a.uid = b.uid
+		left join power c on c.id= b.pid
+		where  a.status != 0 and a.uname=#{uname} and a.password=#{password}
+	</select>
+	<select id="selectAll" resultType="User">
+		select * from user where  a.status != 0
+	</select>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="uid" parameterType="User">
+		insert into user(uname,password,status) values(#{uname},#{password},#{status})
+	</insert>
+	<delete id="delete" parameterType="int">
+		update user set status=0 where uid=#{uid}
+	</delete>
+	<update id="update" parameterType="User">
+		update user set uname=#{uname},password=#{password},status=#{status} where uid=#{uid}
+	</update>
+</mapper>
